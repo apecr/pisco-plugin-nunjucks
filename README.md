@@ -1,4 +1,4 @@
-This plugin render a folder scaffold with nunjucks and metalsmith
+This plugin renders a scaffold folder with [nunjucks](https://mozilla.github.io/nunjucks/api.html) and [metalsmith](https://www.metalsmith.io)
 
 ### pisco-plugin-nunjucks - njkRender
 
@@ -17,12 +17,14 @@ and returns a Promise.
 
 *Example*:
 
+When the plugin is called like:
+
 ```
   this.njkRender(
 	  path.resolve('./'),
 		'fromPath',
 		'toPath',
-		{ replaceVar1: 'value1' })
+		{ foo: 'meow' })
 	.then(
 		something();
 	)
@@ -30,3 +32,20 @@ and returns a Promise.
 		console.error(reason);
 	});
 ```
+
+And exists a file `./fromPath/example.html` with the content:
+
+```
+<div>
+This is a {{ foo }} cat 
+</div>
+```
+
+Then a new file `./toPath/example.html` is created:
+
+```
+<div>
+This is a meow cat 
+</div>
+```
+
