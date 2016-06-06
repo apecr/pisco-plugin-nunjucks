@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const chai = require('chai');
+const assert = require('chai').assert;
 const plugin = require('../plugins/nunjucks/plugin.js');
 
 function initPlugin(p) {
@@ -11,20 +11,20 @@ function initPlugin(p) {
 
 describe('Pisco plugin commons test:', function() {
   it('Should have a description', function(done) {
-    chai.assert.isString(plugin.description);
-    chai.assert(plugin.description.length > 6, 'string has length > 6');
+    assert.isString(plugin.description);
+    assert(plugin.description.length > 6, 'string has length > 6');
     done();
   });
 
   it('Should have addons', function(done) {
-    chai.assert.isObject(plugin.addons);
+    assert.isObject(plugin.addons);
     done();
   });
 });
 
 describe('Pisco plugin nunjucks test:', function() {
   it('Should addon \'njkRender\' be a function', function(done) {
-    chai.assert.isFunction(plugin.addons.njkRender);
+    assert.isFunction(plugin.addons.njkRender);
     done();
   });
 
@@ -36,10 +36,10 @@ describe('Pisco plugin nunjucks test:', function() {
     initPlugin(plugin);
     let initTestEnv = new Promise((resolve, reject) => {
       fs.writeFile(fromFile, 'one, {{ two }}, three', function(err) {
-        chai.assert.isNull(err, `file '${fromFile}' is not been written`);
+        assert.isNull(err, `file '${fromFile}' is not been written`);
 
         fs.writeFile(toFile, 'Hey there!', function(err) {
-          chai.assert.isNull(err, `file '${toFile}' is not been written`);
+          assert.isNull(err, `file '${toFile}' is not been written`);
 
 	  resolve();
         });
@@ -51,13 +51,13 @@ describe('Pisco plugin nunjucks test:', function() {
       plugin.addons.njkRender(path.resolve('./test/test1'), 'from', 'to', { two: 'four' })
         .then(() => {
           fs.readFile(toFile, 'utf8', function (err, data) {
-            chai.assert.isNull(err, `file '${toFile}' does not open`);
-            chai.assert.equal(data, 'one, four, three', `nunjucks file '${toFile}' render fails`);
+            assert.isNull(err, `file '${toFile}' does not open`);
+            assert.equal(data, 'one, four, three', `nunjucks file '${toFile}' render fails`);
             done();
           })
         })
         .catch((reason) => {
-          chai.assert.fail(false, reason);
+          assert.fail(false, reason);
         }));
   });
 
@@ -68,7 +68,7 @@ describe('Pisco plugin nunjucks test:', function() {
     initPlugin(plugin);
     let initTestEnv = new Promise((resolve, reject) => {
       fs.writeFile(fromtoFile, 'one,{% for item in items %}{{ item.title }},{% endfor %}four', function(err) {
-        chai.assert.isNull(err, `file '${fromtoFile}' is not been written`);
+        assert.isNull(err, `file '${fromtoFile}' is not been written`);
         resolve();
       });
     });
@@ -78,13 +78,13 @@ describe('Pisco plugin nunjucks test:', function() {
       plugin.addons.njkRender(path.resolve('./test'), 'test2/fromto', 'test2/fromto', {items: [{title: 'two'}, {title: 'three'}]})
         .then(() => {
           fs.readFile(fromtoFile, 'utf8', function (err, data) {
-            chai.assert.isNull(err, `file '${fromtoFile}' does not open`);
-            chai.assert.equal(data, 'one,two,three,four', `nunjucks file '${fromtoFile}' render fails`);
+            assert.isNull(err, `file '${fromtoFile}' does not open`);
+            assert.equal(data, 'one,two,three,four', `nunjucks file '${fromtoFile}' render fails`);
             done();
           })
         })
         .catch((reason) => {
-          chai.assert.fail(false, reason);
+          assert.fail(false, reason);
         }));
   });
 });
