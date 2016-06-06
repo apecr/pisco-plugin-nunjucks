@@ -10,11 +10,6 @@ module.exports = {
     njkRender: function(root, from, to, vars) {
       let logger = this.logger;
 
-      // Workaround to make mocha tests to run
-      if (logger === undefined) {
-        logger = require('piscosour/lib/logger.js');
-      }
-
       logger.silly('Path from: ', from);
       logger.silly('Path to  : ', to);
       logger.silly('vars     : ', vars);

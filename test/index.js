@@ -5,6 +5,10 @@ const path = require('path');
 const chai = require('chai');
 const plugin = require('../plugins/nunjucks/plugin.js');
 
+function initPlugin(p) {
+  p.addons.logger = require('piscosour/lib/logger.js');
+}
+
 describe('Pisco plugin commons test:', function() {
   it('Should have a description', function(done) {
     chai.assert.isString(plugin.description);
@@ -29,6 +33,7 @@ describe('Pisco plugin nunjucks test:', function() {
     let toFile = './test/test1/to/test1.njk';
 
     //Initialize Test Environment
+    initPlugin(plugin);
     let initTestEnv = new Promise((resolve, reject) => {
       fs.writeFile(fromFile, 'one, {{ two }}, three', function(err) {
         chai.assert.isNull(err, `file '${fromFile}' is not been written`);
@@ -60,6 +65,7 @@ describe('Pisco plugin nunjucks test:', function() {
     let fromtoFile = './test/test2/fromto/test2.njk';
 
     //Initialize Test Environment
+    initPlugin(plugin);
     let initTestEnv = new Promise((resolve, reject) => {
       fs.writeFile(fromtoFile, 'one,{% for item in items %}{{ item.title }},{% endfor %}four', function(err) {
         chai.assert.isNull(err, `file '${fromtoFile}' is not been written`);
