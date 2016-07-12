@@ -5,7 +5,6 @@ const define = require('metalsmith-define');
 const inplace = require('metalsmith-in-place');
 
 module.exports = {
-  description: 'Exec a template render with metalsmith and nunjucks',
   addons: {
     njkRender: function(root, from, to, vars) {
       let logger = this.logger;
