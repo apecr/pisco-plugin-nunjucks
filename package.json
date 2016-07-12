@@ -28,6 +28,6 @@
     "chai": "^3.5.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
-    "piscosour": "^0.3.2"
+    "piscosour": "^1.0.0-alpha.3"
   }
 }
