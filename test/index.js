@@ -3,18 +3,13 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('chai').assert;
-const plugin = require('../plugins/nunjucks/plugin.js');
+const plugin = require('../plugins/nunjucks');
 
 function initPlugin(p) {
   p.addons.logger = require('piscosour/lib/logger.js');
 }
 
 describe('Pisco plugin commons test:', function() {
-  it('Should have a description', function(done) {
-    assert.isString(plugin.description);
-    assert(plugin.description.length > 6, 'string has length > 6');
-    done();
-  });
 
   it('Should have addons', function(done) {
     assert.isObject(plugin.addons);
