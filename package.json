@@ -18,6 +18,8 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "author": "Cells Developers",
+  "license": "Apache-2.0",
   "dependencies": {
     "metalsmith": "^2.1.0",
     "metalsmith-define": "^2.0.1",
